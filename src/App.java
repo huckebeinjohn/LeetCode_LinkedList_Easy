@@ -122,4 +122,18 @@ public class App {
         return pointerA;
     }
 
+    // 206. Reverse Linked List.
+    public static ListNode reverseList(ListNode head) {
+        ListNode prev = null; // declare prev to save the previous node;
+        ListNode next_N = null; // devlare next_N to save the next node;
+        while (head != null) { // loop condition;
+            next_N = head.next; // saving the next object to next_N;
+            head.next = prev; // pointing the current node to opposite direction(prev);
+            prev = head; // saving the current object to prev;
+            head = next_N; // move to the next node.
+        }
+
+        return prev;
+    }
+
 }
