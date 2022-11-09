@@ -180,19 +180,29 @@ public class App {
         return true;
     }
 
-    // 234. Palindrome linked List.
-    // public static boolean palindromeLinkedListVersion2(ListNode head) {
-    // // declare fast and slow pointer;
-    // ListNode fast = head;
-    // ListNode slow = head;
-    // // have both pointers loop thorugh the linked list.
-    // while (fast != null && fast.next != null) {
-    // fast = fast.next.next; // again, fast pointer is moving two time faster:)
-    // slow = slow.next;
-    // }
-    // // reset both pointer to its starting positon.
-
-    // }
+    // 234. Palindrome linked List. (Using fast and slow pointer to find the middle
+    // position of the linked list)
+    public static boolean palindromeLinkedListVersion2(ListNode head) {
+        // declare fast and slow pointer;
+        ListNode fast = head;
+        ListNode slow = head;
+        // have both pointers loop thorugh the linked list.
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next; // again, fast pointer is moving two time faster:)
+            slow = slow.next;
+        }
+        // reset both pointer to its starting positon.
+        fast = head;
+        slow = reverseList(slow);
+        while (slow != null) {
+            if (slow.val != fast.val) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return true;
+    }
 
     // 234. Palindrome Linked List (method to reverse the linked list)
     public static ListNode reversed(ListNode head) {
@@ -207,6 +217,7 @@ public class App {
         return prev;
     }
 
+    // TODO: fix this code.
     public static boolean palindromeLinkedListVersionTesting(ListNode head) {
         ListNode originList = head;
         ListNode reversedList = reversed(head);
