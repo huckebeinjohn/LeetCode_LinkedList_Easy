@@ -1,7 +1,9 @@
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
+import javax.management.ListenerNotFoundException;
 import javax.swing.event.ListSelectionListener;
 
 public class App {
@@ -22,7 +24,7 @@ public class App {
         // mergeTwoLinkedList(list1, list2);
 
         ListNode node1 = new ListNode(2, new ListNode(4, new ListNode(6)));
-        node1.next.insertAfter(0);
+        node1.insertAfter(0);
         while (node1.next != null) {
             System.out.println("node1:" + node1.val);
             node1 = node1.next;
@@ -75,4 +77,49 @@ public class App {
         temp_node.toString();
         return temp_node.next;
     }
+
+    // Linked List Cycle.
+    public static boolean hascycle(ListNode head) {
+
+        if (head == null) {
+            return false;
+        }
+        ListNode slowPointer = head;
+        ListNode fastPointer = head.next;
+
+        while (slowPointer != fastPointer) {
+
+            if (fastPointer == null || fastPointer.next == null) {
+                return false;
+            }
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+        }
+        return true;
+    }
+
+    // 160. Intersection of Two Linked Lists
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode pointerA = headA;
+        ListNode pointerB = headB;
+        while (pointerA != pointerB) {
+            if (pointerA == null) {
+                pointerA = headB;
+            } else {
+                pointerA = pointerA.next;
+            }
+
+            if (pointerB == null) {
+                pointerB = headA;
+            } else {
+                pointerB = pointerB.next;
+            }
+        }
+
+        return pointerA;
+    }
+
 }
