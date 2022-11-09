@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,18 +24,40 @@ public class App {
 
         // mergeTwoLinkedList(list1, list2);
 
-        ListNode node1 = new ListNode(2, new ListNode(4, new ListNode(6)));
-        node1.insertAfter(0);
-        while (node1.next != null) {
-            System.out.println("node1:" + node1.val);
-            node1 = node1.next;
+        // ListNode node1 = new ListNode(2, new ListNode(4, new ListNode(6)));
+        // node1.insertAfter(0);
+        // while (node1.next != null) {
+        // System.out.println("node1:" + node1.val);
+        // node1 = node1.next;
+        // }
+        // System.out.println("node1:" + node1.val);
+
+        // ListNode node2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+
+        // mergeTwoLists(node1, node2);
+
+        ListNode testingNode = new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(1))));
+        // while (testingNode.next != null) {
+        // System.out.println("node1:" + testingNode.val);
+        // testingNode = testingNode.next;
+        // }
+
+        printNode(testingNode);
+        ListNode testingNodeReversed = reversed(testingNode);
+        printNode(testingNodeReversed);
+
+        boolean result = palindromeLinkedListVersionTesting(testingNode);
+        System.out.println(result);
+
+    }
+
+    // TestingMethod: Print the god damn node;
+    public static void printNode(ListNode head) {
+        while (head != null) {
+            System.out.println(head.val);
+            head = head.next;
         }
-        System.out.println("node1:" + node1.val);
-
-        ListNode node2 = new ListNode(1, new ListNode(3, new ListNode(4)));
-
-        mergeTwoLists(node1, node2);
-
+        System.out.println("endOfList");
     }
 
     public static LinkedList mergeTwoLinkedList(LinkedList l1, LinkedList l2) {
@@ -136,4 +159,65 @@ public class App {
         return prev;
     }
 
+    // 234. Palindrome Linked List.(Converting Linked list into arrayList, slow but
+    // works)
+    public static boolean palindromeLinkedListVersion1(ListNode head) {
+        ArrayList<Integer> arraylist = new ArrayList<>();
+        while (head != null) {
+            arraylist.add(head.val);
+            head = head.next;
+        }
+        int leftPointer = 0;
+        int rightPointer = arraylist.size() - 1;
+
+        while (leftPointer <= rightPointer) {
+            if (arraylist.get(leftPointer) != arraylist.get(rightPointer)) {
+                return false;
+            }
+            leftPointer += 1;
+            rightPointer -= 1;
+        }
+        return true;
+    }
+
+    // 234. Palindrome linked List.
+    // public static boolean palindromeLinkedListVersion2(ListNode head) {
+    // // declare fast and slow pointer;
+    // ListNode fast = head;
+    // ListNode slow = head;
+    // // have both pointers loop thorugh the linked list.
+    // while (fast != null && fast.next != null) {
+    // fast = fast.next.next; // again, fast pointer is moving two time faster:)
+    // slow = slow.next;
+    // }
+    // // reset both pointer to its starting positon.
+
+    // }
+
+    // 234. Palindrome Linked List (method to reverse the linked list)
+    public static ListNode reversed(ListNode head) {
+        ListNode prev = null;
+        ListNode next_N = null;
+        while (head != null) {
+            next_N = head.next;
+            head.next = prev;
+            prev = head;
+            head = next_N;
+        }
+        return prev;
+    }
+
+    public static boolean palindromeLinkedListVersionTesting(ListNode head) {
+        ListNode originList = head;
+        ListNode reversedList = reversed(head);
+
+        while (originList != null) {
+            if (originList.val != reversedList.val) {
+                return false;
+            }
+            originList = originList.next;
+            reversedList = reversedList.next;
+        }
+        return true;
+    }
 }
